@@ -1,0 +1,53 @@
+/* Blue Dots Economy — Starlight theme overrides.
+   Accent palette centred on a "blue dot" blue. */
+:root {
+  --sl-color-accent-low: #0a2540;
+  --sl-color-accent: #1d6cf2;
+  --sl-color-accent-high: #b3d0ff;
+
+  /* Main content font. Google Sans is proprietary and not served by Google
+     Fonts, so it is used when available (locally installed, or self-hosted
+     via the @font-face block below) and otherwise falls back to a similar
+     geometric sans. "Product Sans" is the marketing-name variant. */
+  --sl-font:
+    'Google Sans', 'Google Sans Text', 'Product Sans', 'Roboto',
+    system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+/*
+ * To self-host Google Sans (if you have a licensed copy of the font files),
+ * drop the .woff2 files into `public/fonts/` and uncomment:
+ *
+ * @font-face {
+ *   font-family: 'Google Sans';
+ *   src: url('/bluedots-docs/fonts/GoogleSans-Regular.woff2') format('woff2');
+ *   font-weight: 400;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ * @font-face {
+ *   font-family: 'Google Sans';
+ *   src: url('/bluedots-docs/fonts/GoogleSans-Medium.woff2') format('woff2');
+ *   font-weight: 500;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ * @font-face {
+ *   font-family: 'Google Sans';
+ *   src: url('/bluedots-docs/fonts/GoogleSans-Bold.woff2') format('woff2');
+ *   font-weight: 700;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ */
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d6e4ff;
+  --sl-color-accent: #1554c9;
+  --sl-color-accent-high: #0a2540;
+}
+
+/* Slightly tighter hero on the landing splash. */
+.hero h1 {
+  letter-spacing: -0.02em;
+}

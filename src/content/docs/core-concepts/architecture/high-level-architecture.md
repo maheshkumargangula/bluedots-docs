@@ -1,0 +1,51 @@
+---
+title: High-Level Architecture
+description: The layered architecture of the Blue Dots stack — apps, auth, APIs, datastores and integrations.
+sidebar:
+  order: 1
+---
+
+The Blue Dots stack is organised into clear horizontal layers, with two parallel verticals — **Aggregator** and **Signals** — that share datastores and integrations.
+
+## The layered view
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│ Apps   │  Aggregator App (Web)        │  Signals App (Web)     │
+├────────┼──────────────────────────────┼────────────────────── ┤
+│ Auth   │  Keycloak                    │  Better-Auth           │
+├────────┼──────────────────────────────┼─────────────────────  ┤
+│ API    │  Aggregator API              │  Signals API           │
+├────────┴──────────────────────────────┴──────────────────────-┤
+│ DBs    │  Redis      │  PostgreSQL     │  Object Storage (S3)   │
+├───────────────────────────────────────────────────────────────┤
+│ Integrations         │  SMTP (email)   │  SMS                   │
+└───────────────────────────────────────────────────────────────┘
+```
+
+## Layer by layer
+
+**Apps.** Two web front-ends. The **Aggregator App** is the organisation-facing portal for onboarding and bulk upload. The **Signals App** is the schema-driven UI that renders forms and cards directly from network and item schemas.
+
+**Auth.** The two verticals use different identity systems by design: the Aggregator stack uses **Keycloak** (OIDC, realm `aggregator`), while the Signals stack uses **Better-Auth** with an additional API-key path for integrating DPGs. See [Identity & Auth](/bluedots-docs/core-concepts/architecture/identity-and-auth/).
+
+**API.** The **Aggregator API** is a Fastify backend-for-frontend that owns the aggregator database and the registration/approval/bulk-upload flows. The **Signals API** is the network-aware Fastify backend that owns items, actions, events and cross-instance discovery.
+
+**Datastores.** Shared across both verticals:
+- **PostgreSQL** — system of record (Drizzle ORM; item tables are partitioned in Signals).
+- **Redis** — sessions, caches and the background-job queue.
+- **Object Storage (S3)** — bulk-upload files and assets. S3 is a real cloud dependency, not part of the local Docker stack.
+
+**Integrations.** **SMTP** for email (Mailpit locally) and **SMS** for notifications and OTP delivery.
+
+## Two verticals, one network
+
+The Aggregator vertical is an **on-ramp**: it feeds participant signals into the Signals vertical, which is the **network**. In the MVP the Aggregator writes to Signals only through controlled bulk-create paths and otherwise reads from it.
+
+```text
+Aggregator App ─▶ Aggregator API ─▶ (bulk create) ─▶ Signals API ─▶ Network discovery
+                                                          ▲
+                                          Signals App ────┘
+```
+
+Dive deeper into each vertical in [Signals DPG](/bluedots-docs/core-concepts/architecture/signals-dpg/) and [Aggregator DPG](/bluedots-docs/core-concepts/architecture/aggregator-dpg/).
