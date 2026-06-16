@@ -38,7 +38,7 @@ const { before, after, persona } = Astro.props;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     gap: 0.75rem;
-    align-items: start;
+    align-items: stretch;
   }
   @media (max-width: 600px) {
     .jq-bubbles {
@@ -95,6 +95,6 @@ const { before, after, persona } = Astro.props;
     color: var(--sl-color-gray-3);
     display: flex;
     align-items: center;
-    padding-top: 2.25rem;
+    justify-content: center;
   }
 </style>

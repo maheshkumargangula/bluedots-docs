@@ -110,6 +110,20 @@
   margin-inline-end: 0.35em;
 }
 
+/* ---------------------------------------------------------------------------
+   Layout overrides — narrow the "On this page" TOC so the main content
+   has more horizontal room. Starlight puts these rules inside
+   @layer starlight.core, so unlayered custom CSS overrides them cleanly.
+   --------------------------------------------------------------------------- */
+@media (min-width: 72rem) {
+  .right-sidebar-container {
+    width: 13rem;
+  }
+  [data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - 13rem);
+  }
+}
+
 /* Colour-keyed dot names (e.g. in the family table). */
 .dot-name {
   font-weight: 700;
