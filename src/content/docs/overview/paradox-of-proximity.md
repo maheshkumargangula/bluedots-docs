@@ -15,6 +15,18 @@ The same pattern repeats across every sector, in every district, every day:
 
 > An ITI graduate goes unplaced at campus, while a small business 800 metres away needs talent of exactly his trade.
 
+## The district economy is digitally dark
+
+Most of the district economy is not on any digital map. Livelihoods, services and schemes live on walls, poles, autos and hoardings as posters, and travel through word-of-mouth chains. National platforms were built for digitally fluent users — not for the fragmented, vernacular, hyperlocal reality of district life.
+
+The result: roughly **80% of the district economy has never appeared on any digital system**.
+
+:::note[The core distinction]
+This is **not a resource failure**. The jobs, skills, services and schemes already exist. It is a **local discovery failure** — and unlike resource failure, it does not need large investment. It needs shared discovery infrastructure that makes what already exists visible.
+:::
+
+> Kavita, a commerce graduate in Ghaziabad, is urged by her family to move to Delhi or Gurgaon, convinced no meaningful career can be built at home. Two kilometres from her house, a manufacturing firm is looking for someone exactly like her. Neither knows the other exists.
+
 ## The cost of invisibility
 
 Digital darkness has measurable consequences:
@@ -26,9 +38,21 @@ Digital darkness has measurable consequences:
 | Scheme budget utilisation | < 70% |
 | Service uptake vs. potential | < 50% |
 
+## It falls hardest on those with the fewest resources
+
+Local discovery failure is not evenly shared. It hits hardest those who cannot rely on who they know — women re-entering the workforce, persons with disabilities, first-generation graduates without alumni networks, and daily-wage workers. Personal networks are how opportunities reach most people today; those without them are left out.
+
+A shared discovery infrastructure changes this **structurally, not individually**. The proof is concrete: in **February 2026**, the needs of over **one lakh persons with disabilities** — across livelihoods, schemes and services — were surfaced across multiple districts in **ten days at about ₹10 per interaction**, versus ₹500+ for a traditional field survey.
+
+> Fixing the infrastructure changes who gets included — not through redistribution, but through local discovery.
+
+## The macro stake
+
+The cost compounds at national scale. SMBs contribute roughly **70% of employment** in India but only about **30% of GDP** — constrained not by capital, but by the inability to find nearby talent, customers and services. Local discovery failure is a drag on the productivity of the firms that employ most Indians.
+
 ## The size of the opportunity
 
-Enabling local discovery in India's **top 100 districts** alone represents a conservatively estimated **₹90,000 crore** opportunity — and that figure considers only livelihood enhancement. The full potential of local discovery across all sectors is significantly larger.
+Enabling local discovery in India's **top 100 districts** alone represents a conservatively estimated **₹87,500 crore per year** opportunity — and that figure considers only livelihood enhancement. The full potential of local discovery across all sectors is significantly larger. See [The Economics of Local Discovery](/bluedots-docs/explore/economics/) for the full breakdown.
 
 ## The good news: it's solvable
 

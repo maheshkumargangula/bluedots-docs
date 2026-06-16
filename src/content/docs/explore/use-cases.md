@@ -7,9 +7,19 @@ sidebar:
 
 Blue Dots applies wherever seekers and providers are close in distance but invisible to each other. Livelihoods is the first and most developed use case; the same rails extend across sectors.
 
+:::note
+The personas below — the jobseeking youth, the woman seeking nearby work, the citizen chasing a scheme, the person with a disability looking for support — each map to a colour-coded member of the "Dots family." For the full taxonomy, see [Beyond Livelihoods: The Dots Family](/bluedots-docs/explore/beyond-livelihoods/).
+:::
+
 ## Livelihoods for youth
 
-The flagship use case. An ITI graduate looking for trade-specific work and a small business 800 metres away that needs exactly that skill currently never connect. With Blue Dots:
+The flagship use case. An ITI graduate looking for trade-specific work and a small business 800 metres away that needs exactly that skill currently never connect.
+
+> **Before:** "I guess I will have to move to a city to find a job."
+>
+> **After:** "I didn't realize there are 100s of relevant jobs in my vicinity!"
+
+With Blue Dots:
 
 - The graduate publishes a Blue Dot (often by voice).
 - The employer's need is captured as a complementary signal.
@@ -21,13 +31,21 @@ The flagship use case. An ITI graduate looking for trade-specific work and a sma
 
 Local, proximity-aware discovery lowers the barriers that keep women's labour-force participation under 35% — surfacing nearby, suitable work without long-distance migration.
 
+> **Before:** "I don't want to travel more than 20 minutes for work."
+>
+> **After:** "Spoke for 2 mins and I can now see remote work and roles just two bus stops away."
+
 ## Government scheme uptake
 
 Scheme budget utilisation sits below 70% largely because eligible citizens never discover relevant schemes. Modelling schemes as providers and citizens as seekers makes entitlements discoverable at the local level.
 
 ## Local services
 
-Service uptake runs at under 50% of potential. Blue Dots connects citizens with nearby services they didn't know existed — the same discovery pattern, a different domain.
+Service uptake runs at under 50% of potential. Blue Dots connects citizens with nearby services they didn't know existed — the same discovery pattern, a different domain. This is especially powerful for persons with disabilities, who often don't know where to turn for the support that would let them start working.
+
+> **Before:** "I don't know who to talk to for the support I need to start working."
+>
+> **After:** "I just highlighted my needs and I can already see options for both work and services!"
 
 ## The common pattern
 

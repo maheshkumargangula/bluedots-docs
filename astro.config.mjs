@@ -11,14 +11,15 @@ export default defineConfig({
 
   integrations: [
     starlight({
-      title: 'Blue Dots Economy',
+      title: 'Documentation',
       description:
         'Open documentation for the Blue Dots Economy — the Signals and Aggregator Digital Public Goods (DPGs) that power local discovery.',
       tagline: 'Discovery infrastructure for India’s districts',
       logo: {
-        light: './src/assets/logo-light.svg',
-        dark: './src/assets/logo-dark.svg',
+        light: './src/assets/logo-light.png',
+        dark: './src/assets/logo-dark.png',
         replacesTitle: false,
+        alt: 'Blue Dots Economy',
       },
       social: [
         {
@@ -93,6 +94,7 @@ export default defineConfig({
                 { label: 'Aggregator DPG Setup', slug: 'guides/installation/aggregator-dpg' },
               ],
             },
+            { label: 'Activating in a District', slug: 'guides/district-activation' },
             { label: 'Adaptor Onboarding', slug: 'guides/adaptor-onboarding' },
             { label: 'Configuration', slug: 'guides/configuration' },
             { label: 'API Reference', slug: 'guides/api-reference' },
@@ -104,7 +106,8 @@ export default defineConfig({
           items: [
             { label: 'Use Cases', slug: 'explore/use-cases' },
             { label: 'Pilots: Ghaziabad & Dharwad', slug: 'explore/pilots' },
-            { label: 'Beyond Livelihoods', slug: 'explore/beyond-livelihoods' },
+            { label: 'The Economics of Local Discovery', slug: 'explore/economics' },
+            { label: 'The Dots Family', slug: 'explore/beyond-livelihoods' },
           ],
         },
         {

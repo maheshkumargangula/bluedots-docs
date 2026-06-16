@@ -51,3 +51,84 @@
 .hero h1 {
   letter-spacing: -0.02em;
 }
+
+/* Header logo: fit the wide PNG inside the nav bar height */
+.site-title img {
+  height: 2rem;
+  width: auto;
+  max-width: none;
+}
+
+/* "Documentation" label: right-sized, with a vertical rule matching the reference design */
+.site-title {
+  gap: 0.5rem;
+}
+.site-title span {
+  font-size: 1rem;
+  font-weight: 600;
+  /* Light mode: black text (Starlight's --sl-color-black is theme-aware and
+     resolves to white in light mode, so set the colour explicitly). */
+  color: #000;
+  border-inline-start: 1px solid var(--sl-color-gray-5);
+  padding-inline-start: 0.5rem;
+}
+
+/* Dark mode: white text */
+:root[data-theme='dark'] .site-title span {
+  color: var(--sl-color-white);
+}
+
+/* ---------------------------------------------------------------------------
+   Dots family — brand colours from bluedotseconomy.org.
+   Each colour has a light-mode value (legible on white) and a lightened
+   dark-mode value (legible on the dark background).
+   --------------------------------------------------------------------------- */
+:root {
+  --dot-blue: #1335b5;
+  --dot-pink: #cb3982;
+  --dot-purple: #7a52a1;
+  --dot-orange: #c25e12;
+  --dot-green: #3a7739;
+  --dot-brown: #77411b;
+}
+:root[data-theme='dark'] {
+  --dot-blue: #8aa6ff;
+  --dot-pink: #f48fc4;
+  --dot-purple: #c3a3e3;
+  --dot-orange: #f0a35e;
+  --dot-green: #7fc77e;
+  --dot-brown: #c89b6f;
+}
+
+/* The coloured dot marker (the SVGs from bluedotseconomy.org). Self-coloured,
+   so it reads correctly in both light and dark mode. */
+.dot-icon {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  vertical-align: -0.32em;
+  margin-inline-end: 0.35em;
+}
+
+/* Colour-keyed dot names (e.g. in the family table). */
+.dot-name {
+  font-weight: 700;
+}
+.dot-name--blue {
+  color: var(--dot-blue);
+}
+.dot-name--pink {
+  color: var(--dot-pink);
+}
+.dot-name--purple {
+  color: var(--dot-purple);
+}
+.dot-name--orange {
+  color: var(--dot-orange);
+}
+.dot-name--green {
+  color: var(--dot-green);
+}
+.dot-name--brown {
+  color: var(--dot-brown);
+}
