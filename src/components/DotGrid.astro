@@ -1,0 +1,19 @@
+---
+interface Props {
+  minWidth?: string;
+}
+const { minWidth = '260px' } = Astro.props;
+---
+
+<div class="dot-grid" style={`--min: ${minWidth}`}>
+  <slot />
+</div>
+
+<style>
+  .dot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--min, 260px), 1fr));
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+</style>

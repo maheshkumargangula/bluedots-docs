@@ -5,20 +5,54 @@ sidebar:
   order: 3
 ---
 
+import DotCard from '../../../components/DotCard.astro';
+import DotGrid from '../../../components/DotGrid.astro';
+import JourneyQuote from '../../../components/JourneyQuote.astro';
+
 **Blue Dots** is the umbrella brand for a shared digital discovery infrastructure. The same open, shared rails surface local demand and supply in different **colors and icons** depending on the persona and the need — not separate systems, and not a single closed marketplace.
 
 This fluidic exchange lets specialised discovery ride a shared rail, turning a district into an interconnected economic engine. In every case, voice and vernacular AI create a dot in **2–3 minutes** — about as fast as making an instant coffee — on any phone, in any local language.
 
 ## The Dots family
 
-| Dot | Persona / Sector | The discovery problem | Scale |
-|---|---|---|---|
-| <img class="dot-icon" src="/bluedots-docs/dots/dot-blue.svg" alt="Blue dot" /> <span class="dot-name dot-name--blue">Blue</span> | Livelihoods for youth | Youth and employers stay invisible to each other even two bus stops apart | <50% youth placement rate in India |
-| <img class="dot-icon" src="/bluedots-docs/dots/dot-pink.svg" alt="Pink dot" /> <span class="dot-name dot-name--pink">Pink</span> | Greater female labour-force participation | Women and flexible-work opportunities remain digitally dark | <35% female labour-force participation in India |
-| <img class="dot-icon" src="/bluedots-docs/dots/dot-purple.svg" alt="Purple dot" /> <span class="dot-name dot-name--purple">Purple</span> | Economic participation by Persons with Disabilities | Discovery failure of livelihoods and services becomes a forced exit from the economy | ~100 million PwDs can take an active part in India's economy |
-| <img class="dot-icon" src="/bluedots-docs/dots/dot-orange.svg" alt="Orange dot" /> <span class="dot-name dot-name--orange">Orange</span> | Growing the tourism economy | Local guides, experiences and artisans stay digitally dark | Indian tourism projected to grow from $78 Bn to $3 Tn by 2047 |
-| <img class="dot-icon" src="/bluedots-docs/dots/dot-green.svg" alt="Green dot" /> <span class="dot-name dot-name--green">Green</span> | Boosting efficiency of farming | Farm labour, equipment repair and storage stay digitally dark | ~$12 billion in crop value lost annually |
-| <img class="dot-icon" src="/bluedots-docs/dots/dot-brown.svg" alt="Brown dot" /> <span class="dot-name dot-name--brown">Brown</span> | Powering growth for SMBs | SMBs throttled by invisible local barriers, forced to stay small | ~60 million SMBs in India employ fewer than 10 people each |
+<DotGrid>
+  <DotCard
+    color="blue"
+    sector="Livelihoods for youth"
+    problem="Youth and employers stay invisible to each other even two bus stops apart"
+    stat="< 50% youth placement rate in India"
+  />
+  <DotCard
+    color="pink"
+    sector="Greater female labour-force participation"
+    problem="Women and flexible-work opportunities remain digitally dark"
+    stat="< 35% female labour-force participation in India"
+  />
+  <DotCard
+    color="purple"
+    sector="Economic participation by Persons with Disabilities"
+    problem="Discovery failure of livelihoods and services becomes a forced exit from the economy"
+    stat="~100 million PwDs can actively participate in India's economy"
+  />
+  <DotCard
+    color="orange"
+    sector="Growing the tourism economy"
+    problem="Local guides, experiences and artisans stay digitally dark"
+    stat="Indian tourism projected to grow from $78 Bn to $3 Tn by 2047"
+  />
+  <DotCard
+    color="green"
+    sector="Boosting efficiency of farming"
+    problem="Farm labour, equipment repair and storage stay digitally dark"
+    stat="~$12 billion in crop value lost annually"
+  />
+  <DotCard
+    color="brown"
+    sector="Powering growth for SMBs"
+    problem="SMBs throttled by invisible local barriers, forced to stay small"
+    stat="~60 million SMBs in India employ fewer than 10 people each"
+  />
+</DotGrid>
 
 :::note
 Each color is the **same rail** in a different sector context — a set of [domains](/bluedots-docs/core-concepts/networks-domains-instances/) and item schemas, not a new platform.
@@ -28,41 +62,51 @@ Each color is the **same rail** in a different sector context — a set of [doma
 
 Local discovery failure keeps youth and employers invisible to each other even two bus stops apart. Youth lose income, employers lose productivity, and the demographic dividend stalls.
 
-> "I guess I will have to move to a city to find a job."
->
-> → "I didn't realize there are 100s of relevant jobs in my vicinity!"
+<JourneyQuote
+  before="I guess I will have to move to a city to find a job."
+  after="I didn't realize there are 100s of relevant jobs in my vicinity!"
+  persona="Blue Dots — Youth livelihoods"
+/>
 
 ### <img class="dot-icon" src="/bluedots-docs/dots/dot-pink.svg" alt="" />Pink Dots — Greater Female Labour-Force Participation
 
 Women and flexible-work opportunities remain digitally dark. Every day lost finding work is lost income and a stalled economy that sidelines 50% of the population.
 
-> "I don't want to travel more than 20 minutes for work."
->
-> → "Spoke for 2 mins and I can now see remote work and roles just two bus stops away."
+<JourneyQuote
+  before="I don't want to travel more than 20 minutes for work."
+  after="Spoke for 2 mins and I can now see remote work and roles just two bus stops away."
+  persona="Pink Dots — Women's workforce"
+/>
 
 ### <img class="dot-icon" src="/bluedots-docs/dots/dot-purple.svg" alt="" />Purple Dots — Economic Participation by Persons with Disabilities
 
 For PwDs, local discovery failure of livelihoods and services is a forced exit from the economy. Every month waiting for an assistive device, skilling, or a livelihood option is lost income. Blue Dots let livelihoods, schemes and services find PwDs within 5 km.
 
-> "I don't know who to talk to for the support I need to start working."
->
-> → "I just highlighted my needs and I can already see options for both work and services!"
+<JourneyQuote
+  before="I don't know who to talk to for the support I need to start working."
+  after="I just highlighted my needs and I can already see options for both work and services!"
+  persona="Purple Dots — Persons with Disabilities"
+/>
 
 ### <img class="dot-icon" src="/bluedots-docs/dots/dot-orange.svg" alt="" />Orange Dots — Growing the Tourism Economy
 
 Local guides, tour experiences and artisans remain digitally dark. High-friction discovery pushes travelers to overcrowded hubs and forces local entrepreneurs out.
 
-> "I don't know how to attract more customers."
->
-> → "I just spoke about my work and somehow, three customers have made an enquiry!"
+<JourneyQuote
+  before="I don't know how to attract more customers."
+  after="I just spoke about my work and somehow, three customers have made an enquiry!"
+  persona="Orange Dots — Tourism economy"
+/>
 
 ### <img class="dot-icon" src="/bluedots-docs/dots/dot-green.svg" alt="" />Green Dots — Boosting Efficiency of Farming
 
 Farm labour, equipment repair and storage stay digitally dark. A farmer who can't find a local mechanic or labour in time loses productivity and margin — a direct tax on the agriculture economy.
 
-> "The crop is ready, but I can't find farm labour anywhere and the rain is coming."
->
-> → "Took just a few minutes to find many options of farm labour nearby!"
+<JourneyQuote
+  before="The crop is ready, but I can't find farm labour anywhere and the rain is coming."
+  after="Took just a few minutes to find many options of farm labour nearby!"
+  persona="Green Dots — Agriculture"
+/>
 
 ### <img class="dot-icon" src="/bluedots-docs/dots/dot-brown.svg" alt="" />Brown Dots — Powering Growth for SMBs
 

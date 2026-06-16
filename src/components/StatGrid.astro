@@ -1,0 +1,19 @@
+---
+interface Props {
+  minWidth?: string;
+}
+const { minWidth = '180px' } = Astro.props;
+---
+
+<div class="stat-grid" style={`--min: ${minWidth}`}>
+  <slot />
+</div>
+
+<style>
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--min, 180px), 1fr));
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+</style>

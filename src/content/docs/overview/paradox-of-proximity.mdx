@@ -5,6 +5,10 @@ sidebar:
   order: 2
 ---
 
+import StatCard from '../../../components/StatCard.astro';
+import StatGrid from '../../../components/StatGrid.astro';
+import BeforeAfter from '../../../components/BeforeAfter.astro';
+
 ## Close in distance, invisible in discovery
 
 The defining problem Blue Dots addresses is the **paradox of proximity**: livelihoods, talent, services and schemes sit close together in every district, yet cannot find each other digitally.
@@ -31,12 +35,12 @@ This is **not a resource failure**. The jobs, skills, services and schemes alrea
 
 Digital darkness has measurable consequences:
 
-| Indicator | Today |
-| --- | --- |
-| Youth placement rate | < 20% |
-| Women's labour-force participation | < 35% |
-| Scheme budget utilisation | < 70% |
-| Service uptake vs. potential | < 50% |
+<StatGrid>
+  <StatCard value="< 20%" label="Youth placement rate in India" color="orange" />
+  <StatCard value="< 35%" label="Women's labour-force participation" color="pink" />
+  <StatCard value="< 70%" label="Government scheme budget utilisation" color="purple" />
+  <StatCard value="< 50%" label="Service uptake vs. potential" color="blue" />
+</StatGrid>
 
 ## It falls hardest on those with the fewest resources
 
@@ -58,12 +62,12 @@ Enabling local discovery in India's **top 100 districts** alone represents a con
 
 This is not a theoretical problem. Field pilots in **Ghaziabad** and **Dharwad** show that local discovery can be surfaced cheaply and matched quickly when the right infrastructure exists.
 
-| Dimension | Before | With Blue Dots |
-| --- | --- | --- |
-| Jobs visible on platforms | < 100 | 10,000+ (from < 10% of SMBs) |
-| Cost to surface local intelligence | ₹500 / survey | ₹10 / interaction (Voice AI) |
-| Discovery time | > 2 weeks | < 1 day |
-| Distance of match | Another city | < 2 bus stops |
-| Placement / conversion | < 10% | > 50% |
+<BeforeAfter rows={[
+  { dimension: "Jobs visible on platforms", before: "< 100 listings across the district", after: "10,000+ from just < 10% of SMBs" },
+  { dimension: "Cost to surface local intelligence", before: "₹500 / survey interaction", after: "₹10 / interaction (voice AI)" },
+  { dimension: "Discovery time", before: "> 2 weeks", after: "< 1 day" },
+  { dimension: "Distance of match", before: "Another city", after: "< 2 bus stops" },
+  { dimension: "Placement / conversion rate", before: "< 10%", after: "> 50%" }
+]} />
 
 The remaining chapters explain *how* this is achieved — through the Blue Dots approach and the open DPGs that implement it. Continue to [The Blue Dots Approach](/bluedots-docs/overview/the-blue-dots-approach/).
