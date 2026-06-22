@@ -38,6 +38,8 @@ The Blue Dots stack is organised into clear horizontal layers, with two parallel
 
 **Integrations.** **SMTP** for email (Mailpit locally) and **SMS** for notifications and OTP delivery.
 
+**Ingress & platform (cloud).** In a cloud deployment, a shared `common-services` layer fronts both verticals with a **Kong** ingress controller and provisions cert-manager (TLS) and the shared Postgres + Redis. How this is provisioned and deployed is covered in [Infrastructure & Deployment Architecture](/bluedots-docs/core-concepts/architecture/infrastructure/).
+
 ## Two verticals, one network
 
 The Aggregator vertical is an **on-ramp**: it feeds participant signals into the Signals vertical, which is the **network**. In the MVP the Aggregator writes to Signals only through controlled bulk-create paths and otherwise reads from it.

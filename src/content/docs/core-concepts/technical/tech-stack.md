@@ -39,6 +39,22 @@ Both DPGs are TypeScript-first **pnpm + Turborepo** monorepos that share a commo
 
 A shared logger (pino-backed) is used everywhere. Every log entry carries `operation`, a `status` of `success`/`failure`/`skipped`, `latency_ms` for external calls, and `error`/`error_type` on failure. Log level comes from `LOG_LEVEL`.
 
+## Infrastructure & deployment
+
+The cloud deployment is its own codebase (`bluedots-automation`) with a distinct toolchain:
+
+| Concern | Tooling |
+| --- | --- |
+| Cloud provisioning | **OpenTofu** + **Terragrunt** (AWS EKS, VPC, IAM/IRSA, S3, storage) |
+| Application deploy | **Helm** umbrella charts, driven by `install.sh` (no Makefile) |
+| Ingress | **Kong** ingress controller (DB-less), `KongClusterPlugin` rate-limit tiers |
+| TLS | **cert-manager** + Let's Encrypt (`letsencrypt-prod` ClusterIssuer) |
+| Image registry | **GHCR** (`ghcr.io/blue-dots-economy/…`), `sha-<short>` tags |
+| Shared datastores | PostgreSQL + Redis (deployed by `common-services`) |
+| Observability | Prometheus, Alertmanager, Loki, Alloy, Grafana (monitoring chart) |
+
+See [Infrastructure & Deployment Architecture](/bluedots-docs/core-concepts/architecture/infrastructure/) and the [CI/CD & Build Pipeline](/bluedots-docs/guides/cicd-and-builds/) guide.
+
 ## Documentation site
 
 This documentation site itself is built with **Astro + Starlight** and deployed to **GitHub Pages** — see the [Guides](/bluedots-docs/guides/) and the repository `README` for how to run and deploy it.

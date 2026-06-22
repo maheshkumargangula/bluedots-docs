@@ -21,7 +21,8 @@ Stand up the stack locally, then each DPG:
 - [Adaptor Onboarding](/bluedots-docs/guides/adaptor-onboarding/) — the end-to-end path for a new adaptor.
 - [Configuration](/bluedots-docs/guides/configuration/) — env vars, config-as-code, per-environment overrides.
 - [API Reference](/bluedots-docs/guides/api-reference/) — the Signals and Aggregator endpoints.
-- [Deployment](/bluedots-docs/guides/deployment/) — moving from localhost to a VM or cloud.
+- [CI/CD & Build Pipeline](/bluedots-docs/guides/cicd-and-builds/) — how images are built, pinned and delivered across environments.
+- [Deployment](/bluedots-docs/guides/deployment/) — provision AWS infra and deploy the stack with OpenTofu/Terragrunt + Helm.
 
 :::tip[New adaptor?]
 Start with [Adaptor Onboarding](/bluedots-docs/guides/adaptor-onboarding/) for the big picture, then drop into the installation guides for the step-by-step.

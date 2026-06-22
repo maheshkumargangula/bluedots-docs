@@ -67,6 +67,7 @@ export default defineConfig({
                 { label: 'Aggregator DPG', slug: 'core-concepts/architecture/aggregator-dpg' },
                 { label: 'Data Model', slug: 'core-concepts/architecture/data-model' },
                 { label: 'Identity & Auth', slug: 'core-concepts/architecture/identity-and-auth' },
+                { label: 'Infrastructure & Deployment', slug: 'core-concepts/architecture/infrastructure' },
               ],
             },
             {
@@ -96,6 +97,7 @@ export default defineConfig({
             { label: 'Adaptor Onboarding', slug: 'guides/adaptor-onboarding' },
             { label: 'Configuration', slug: 'guides/configuration' },
             { label: 'API Reference', slug: 'guides/api-reference' },
+            { label: 'CI/CD & Build Pipeline', slug: 'guides/cicd-and-builds' },
             { label: 'Deployment', slug: 'guides/deployment' },
           ],
         },
