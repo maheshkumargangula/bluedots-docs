@@ -70,6 +70,49 @@ Three umbrella charts (plus a monitoring chart) deploy in **strict dependency or
 
 `common-services` must be healthy (Postgres + Redis Ready, PVCs bound) before `signals` and `aggregator`, which connect to the shared datastores at `…svc.cluster.local`. The aggregator's Keycloak init job runs after Postgres is Ready, making it the slowest release.
 
+### Deployment topology
+
+```text
+                       Internet
+                          │
+            DNS → Kong proxy LoadBalancer
+                          │
+              ┌───────────▼───────────┐
+              │  Kong ingress (common-services)  │
+              └─────┬───────────┬──────┘
+                    │           │
+        ns: signals │           │ ns: aggregator
+   ┌────────────────▼──┐   ┌────▼─────────────────────┐
+   │ api · ui ·         │   │ web (BFF) · api · worker  │
+   │ notification ·     │   │ · keycloak                │
+   │ match-score ·      │   └────────────┬──────────────┘
+   │ search             │                │
+   └─────────┬──────────┘                │
+             │   shared datastores       │
+             └──────────┬────────────────┘
+                        ▼
+   ns: common-services  ·  PostgreSQL + Redis  ·  cert-manager (TLS)
+```
+
+The same flow as a rendered diagram:
+
+<pre class="mermaid">
+flowchart TD
+  NET["Internet"] --> LB["DNS → Kong proxy LoadBalancer"]
+  LB --> KONG["Kong ingress controller<br/>ns: common-services"]
+  KONG --> SIG["Signals (ns: signals)<br/>api · ui · notification · match-score · search"]
+  KONG --> AGG["Aggregator (ns: aggregator)<br/>web (BFF) · api · worker · keycloak"]
+  SIG --> DB["Shared datastores (ns: common-services)<br/>PostgreSQL + Redis"]
+  AGG --> DB
+  CM["cert-manager + Let's Encrypt<br/>(ns: common-services)"] -. "issues TLS certs" .-> KONG
+  classDef plat fill:#d6e4ff,stroke:#1554c9,color:#0a2540;
+  classDef app fill:#d4edda,stroke:#1e7d34,color:#0a2540;
+  classDef data fill:#fff3cd,stroke:#b8860b,color:#0a2540;
+  class NET,LB,KONG,CM plat;
+  class SIG,AGG app;
+  class DB data;
+</pre>
+
 :::note[Names don't match directories]
 A chart's directory, chart name, release name and namespace can all differ. The Signals stack lives in `helm/signals/`. Treat `install.sh` and `DEPLOYMENT.md` as the source of truth for what deploys where.
 :::

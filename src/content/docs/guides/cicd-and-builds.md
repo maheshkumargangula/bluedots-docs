@@ -9,25 +9,27 @@ Blue Dots separates **building** application images from **deploying** them. The
 
 ## The pipeline at a glance
 
-```text
-app repos (Signals-DPG, aggregator-dpg)
-   │  GitHub Actions: lint · typecheck · test · build
-   │  build Docker images, tag with sha-<short>
-   ▼
-GHCR  ghcr.io/blue-dots-economy/<service>:sha-<short>
-   │
-   │  pin tags in global-images.yaml (per environment)
-   ▼
-bluedots-automation  (OpenTofu/Terragrunt + Helm via install.sh)
-   │  helm upgrade --install … -f global-images.yaml
-   ▼
-AWS EKS cluster  (common-services → signals → aggregator)
-```
+<pre class="mermaid">
+flowchart TD
+  A["Open PR in an app repo"] --> B["GitHub Actions<br/>lint · typecheck · test · build"]
+  B --> C["Merge to trunk"]
+  C --> D["Docker matrix builds images"]
+  D --> E["GHCR<br/>ghcr.io/blue-dots-economy/...:sha-short"]
+  E --> F["Pin tag in global-images.yaml<br/>(per environment)"]
+  F --> G["install.sh deploy_*<br/>helm upgrade --install --wait"]
+  G --> H["AWS EKS<br/>common-services then signals then aggregator"]
+  classDef app fill:#d6e4ff,stroke:#1554c9,color:#0a2540;
+  classDef reg fill:#fff3cd,stroke:#b8860b,color:#0a2540;
+  classDef cd fill:#d4edda,stroke:#1e7d34,color:#0a2540;
+  class A,B,C,D app;
+  class E,F reg;
+  class G,H cd;
+</pre>
 
-There are two distinct "CI/CD" surfaces:
+The diagram shows two distinct "CI/CD" surfaces, bridged by the image registry (yellow):
 
-1. **Application CI** — lives in each app repo. It validates and builds images.
-2. **Delivery / CD** — lives in `bluedots-automation`. It provisions infrastructure and deploys pinned images with Helm.
+1. **Application CI** (blue) — lives in each app repo. It validates and builds images.
+2. **Delivery / CD** (green) — lives in `bluedots-automation`. It provisions infrastructure and deploys pinned images with Helm.
 
 ## 1. Application CI (build & publish)
 
