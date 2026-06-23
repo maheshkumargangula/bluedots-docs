@@ -40,6 +40,26 @@ export default defineConfig({
       lastUpdated: true,
       pagination: true,
       customCss: ['./src/styles/custom.css'],
+      // Client-side Mermaid rendering (no build-time dependency). Diagrams are
+      // authored as <pre class="mermaid"> blocks in Markdown; this script loads
+      // Mermaid from a CDN and (re-)renders on every Astro page load, matching
+      // the active light/dark theme.
+      head: [
+        {
+          tag: 'script',
+          attrs: { type: 'module' },
+          content: [
+            "import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';",
+            'function renderMermaid() {',
+            "  const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default';",
+            '  mermaid.initialize({ startOnLoad: false, theme });',
+            "  const nodes = document.querySelectorAll('pre.mermaid:not([data-processed])');",
+            '  if (nodes.length) mermaid.run({ nodes });',
+            '}',
+            "document.addEventListener('astro:page-load', renderMermaid);",
+          ].join('\n'),
+        },
+      ],
       sidebar: [
         {
           label: 'Overview',
@@ -68,6 +88,7 @@ export default defineConfig({
                 { label: 'Aggregator DPG', slug: 'core-concepts/architecture/aggregator-dpg' },
                 { label: 'Data Model', slug: 'core-concepts/architecture/data-model' },
                 { label: 'Identity & Auth', slug: 'core-concepts/architecture/identity-and-auth' },
+                { label: 'Infrastructure & Deployment', slug: 'core-concepts/architecture/infrastructure' },
               ],
             },
             {
@@ -98,6 +119,7 @@ export default defineConfig({
             { label: 'Adaptor Onboarding', slug: 'guides/adaptor-onboarding' },
             { label: 'Configuration', slug: 'guides/configuration' },
             { label: 'API Reference', slug: 'guides/api-reference' },
+            { label: 'CI/CD & Build Pipeline', slug: 'guides/cicd-and-builds' },
             { label: 'Deployment', slug: 'guides/deployment' },
           ],
         },
