@@ -24,7 +24,7 @@ The cost of invisibility is concrete and measurable. Across Indian districts tod
 - Scheme budget utilisation runs below 70%.
 - Service uptake is under 50% of its potential.
 
-Enabling local discovery in India's top 100 districts represents a conservatively estimated **₹90,000 crore** livelihood-enhancement opportunity — and livelihoods are only one of many sectors Blue Dots can serve.
+Enabling local discovery in India's top 100 districts represents a conservatively estimated **₹87,500 crore** livelihood-enhancement opportunity — and livelihoods are only one of many sectors Blue Dots can serve. For a fuller breakdown, see [The Economics of Local Discovery](/bluedots-docs/explore/economics/).
 
 ## How Blue Dots is built
 

@@ -25,6 +25,10 @@ Signals come from two complementary roles:
 
 The network's job is to discover and connect compatible seekers and providers that are close in distance but were previously invisible to each other.
 
+## Consent is foundational
+
+Every signal — every Blue Dot — exists only because the person or organisation it represents chose to publish it. A signal becomes digital, and is then discovered and exchanged across the network, solely by the choice of the seeker or provider behind it. Consent is not an add-on to the model; it is the reason a signal exists at all.
+
 ## How a signal moves through the network
 
 1. **Create** — a signal is created (directly, by voice, or via an aggregator) and stored as an item in an instance.

@@ -1,0 +1,60 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  color?: 'blue' | 'pink' | 'purple' | 'orange' | 'green' | 'brown' | 'accent';
+  icon?: string;
+}
+const { value, label, color = 'accent', icon } = Astro.props;
+---
+
+<div class:list={['stat-card', `stat-card--${color}`]}>
+  {icon && <span class="stat-icon" aria-hidden="true">{icon}</span>}
+  <div class="stat-value">{value}</div>
+  <div class="stat-label">{label}</div>
+</div>
+
+<style>
+  .stat-card {
+    --card-accent: var(--sl-color-accent);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+    border-radius: 0.875rem;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline);
+    border-top: 4px solid var(--card-accent);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .stat-card--blue   { --card-accent: var(--dot-blue); }
+  .stat-card--pink   { --card-accent: var(--dot-pink); }
+  .stat-card--purple { --card-accent: var(--dot-purple); }
+  .stat-card--orange { --card-accent: var(--dot-orange); }
+  .stat-card--green  { --card-accent: var(--dot-green); }
+  .stat-card--brown  { --card-accent: var(--dot-brown); }
+
+  .stat-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: 0.125rem;
+  }
+  .stat-value {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--card-accent);
+  }
+  .stat-label {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--sl-color-gray-2);
+    margin-top: 0.1rem;
+  }
+</style>
