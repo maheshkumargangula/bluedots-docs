@@ -21,6 +21,7 @@
     "@astrojs/check": "^0.9.4",
     "typescript": "^5.9.0"
   },
+  "packageManager": "pnpm@11.2.2",
   "engines": {
     "node": ">=20.0.0"
   },
