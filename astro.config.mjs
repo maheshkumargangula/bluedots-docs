@@ -132,14 +132,6 @@ export default defineConfig({
             { label: 'The Dots Family', slug: 'explore/beyond-livelihoods' },
           ],
         },
-        {
-          label: 'Community',
-          items: [
-            { label: 'Contributing', slug: 'community/contributing' },
-            { label: 'Roadmap', slug: 'community/roadmap' },
-            { label: 'Release Notes', slug: 'community/release-notes' },
-          ],
-        },
       ],
     }),
   ],
