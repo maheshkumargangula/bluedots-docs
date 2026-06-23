@@ -1,91 +1,124 @@
 ---
-import { Icon } from '@astrojs/starlight/components';
+type LucideIcon = 'map-pin' | 'globe' | 'mic' | 'layers';
+type CardColor = 'blue' | 'green' | 'purple' | 'orange';
 
 interface Props {
   title: string;
-  icon: Parameters<typeof Icon>[0]['name'];
+  icon: LucideIcon;
+  color: CardColor;
 }
-const { title, icon } = Astro.props;
+const { title, icon, color } = Astro.props;
+
+const paths: Record<LucideIcon, string> = {
+  'map-pin': `<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>`,
+  'globe': `<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>`,
+  'mic': `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/>`,
+  'layers': `<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>`,
+};
 ---
 
-<div class="card">
-  <div class="card-header">
-    <div class="card-icon">
-      <Icon name={icon} size="1.25rem" />
-    </div>
-    <h3 class="card-title">{title}</h3>
+<div class:list={['fc', `fc--${color}`]}>
+  <div class="fc-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22" height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      set:html={paths[icon]}
+    />
   </div>
-  <p class="card-desc"><slot /></p>
+  <h3 class="fc-title">{title}</h3>
+  <div class="fc-body"><slot /></div>
 </div>
 
 <style>
-  .card {
-    border-radius: 0.75rem;
-    border: 1px solid var(--sl-color-hairline);
-    background: var(--sl-color-bg-nav);
-    padding: 1.5rem;
-    box-shadow:
-      0 1px 3px 0 rgba(0, 0, 0, 0.07),
-      0 1px 2px 0 rgba(0, 0, 0, 0.04);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  /* ── base card ── */
+  .fc {
+    --from: #eff6ff;
+    --to:   #dbeafe;
+    --bd:   rgba(29, 108, 242, 0.22);
+    --ic:   #1d6cf2;
+    --ibg:  rgba(29, 108, 242, 0.12);
+    --glow: rgba(29, 108, 242, 0.24);
+
+    background: linear-gradient(145deg, var(--from) 0%, var(--to) 100%);
+    border: 1px solid var(--bd);
+    border-radius: 1rem;
+    padding: 1.625rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition:
+      transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.22s ease,
+      border-color 0.18s ease;
     display: flex;
     flex-direction: column;
-    gap: 0.625rem;
+    gap: 0.75rem;
     height: 100%;
   }
 
-  .card:hover {
+  .fc:hover {
+    transform: translateY(-6px);
     box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.08),
-      0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+      0 20px 40px var(--glow),
+      0 4px 8px rgba(0, 0, 0, 0.06);
+    border-color: var(--ic);
   }
 
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.125rem;
-  }
+  /* ── colour variants (light) ── */
+  .fc--blue   { --from:#eff6ff; --to:#dbeafe; --bd:rgba(29,108,242,.22); --ic:#1d6cf2; --ibg:rgba(29,108,242,.14); --glow:rgba(29,108,242,.22); }
+  .fc--green  { --from:#f0fdf4; --to:#dcfce7; --bd:rgba(22,163,74,.22);  --ic:#16a34a; --ibg:rgba(22,163,74,.14);  --glow:rgba(22,163,74,.22); }
+  .fc--purple { --from:#faf5ff; --to:#ede9fe; --bd:rgba(124,58,237,.22); --ic:#7c3aed; --ibg:rgba(124,58,237,.14); --glow:rgba(124,58,237,.22); }
+  .fc--orange { --from:#fff7ed; --to:#ffedd5; --bd:rgba(234,88,12,.22);  --ic:#ea580c; --ibg:rgba(234,88,12,.14);  --glow:rgba(234,88,12,.22); }
 
-  .card-icon {
+  /* ── dark mode overrides ── */
+  :root[data-theme='dark'] .fc--blue   { --from:rgba(29,108,242,.1); --to:rgba(29,108,242,.05); --bd:rgba(29,108,242,.3);  --ic:#93bbff; --ibg:rgba(29,108,242,.18); --glow:rgba(29,108,242,.3); }
+  :root[data-theme='dark'] .fc--green  { --from:rgba(22,163,74,.1);  --to:rgba(22,163,74,.05);  --bd:rgba(22,163,74,.3);   --ic:#86efac; --ibg:rgba(22,163,74,.18);  --glow:rgba(22,163,74,.3); }
+  :root[data-theme='dark'] .fc--purple { --from:rgba(124,58,237,.1); --to:rgba(124,58,237,.05); --bd:rgba(124,58,237,.3);  --ic:#c4b5fd; --ibg:rgba(124,58,237,.18); --glow:rgba(124,58,237,.3); }
+  :root[data-theme='dark'] .fc--orange { --from:rgba(234,88,12,.1);  --to:rgba(234,88,12,.05);  --bd:rgba(234,88,12,.3);   --ic:#fdba74; --ibg:rgba(234,88,12,.18);  --glow:rgba(234,88,12,.3); }
+
+  /* ── icon badge ── */
+  .fc-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 0.5rem;
-    background: var(--sl-color-accent-low);
-    color: var(--sl-color-accent);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.625rem;
+    background: var(--ibg);
+    color: var(--ic);
     flex-shrink: 0;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  :root[data-theme='dark'] .card-icon {
-    background: rgba(255, 255, 255, 0.07);
-    color: var(--sl-color-accent-high);
+  .fc:hover .fc-icon {
+    transform: scale(1.12) rotate(-4deg);
   }
 
-  .card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.35;
+  /* ── title ── */
+  .fc-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
     color: var(--sl-color-text);
     margin: 0;
     padding: 0;
     border: none;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
-  .card-desc {
-    font-size: 0.875rem;
+  /* ── body ── */
+  .fc-body {
+    font-size: 0.9375rem;
     line-height: 1.65;
     color: var(--sl-color-gray-2);
     margin: 0;
     flex: 1;
   }
-
-  .card-desc :global(strong) {
-    color: var(--sl-color-text);
-    font-weight: 600;
-  }
+  .fc-body :global(p)      { margin: 0; }
+  .fc-body :global(strong) { color: var(--sl-color-text); font-weight: 600; }
 </style>
