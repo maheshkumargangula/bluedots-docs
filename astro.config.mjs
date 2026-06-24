@@ -46,6 +46,28 @@ export default defineConfig({
       // the active light/dark theme.
       head: [
         {
+          tag: 'link',
+          attrs: {
+            rel: 'preconnect',
+            href: 'https://fonts.googleapis.com',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'preconnect',
+            href: 'https://fonts.gstatic.com',
+            crossorigin: true,
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'stylesheet',
+            href: 'https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap',
+          },
+        },
+        {
           tag: 'script',
           attrs: { type: 'module' },
           content: [
