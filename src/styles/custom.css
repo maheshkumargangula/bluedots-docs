@@ -55,10 +55,14 @@
 /* Splash page section headings — expressive handwritten font */
 .sl-markdown-content h2 {
   font-family: 'Covered By Your Grace', cursive;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 400;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
   color: var(--sl-color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--dot-pink);
+  text-decoration-thickness: 4px;
+  text-underline-offset: 10px;
 }
 
 /* Header logo: fit the wide PNG inside the nav bar height */
