@@ -52,16 +52,18 @@
   letter-spacing: -0.02em;
 }
 
-/* Splash page section headings — expressive handwritten font */
+/* Splash page section headings — Fraunces optical serif */
 .sl-markdown-content h2 {
-  font-family: 'Covered By Your Grace', cursive;
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   color: var(--sl-color-text);
   text-decoration: underline;
   text-decoration-color: var(--dot-pink);
-  text-decoration-thickness: 4px;
+  text-decoration-thickness: 3px;
   text-underline-offset: 10px;
 }
 
