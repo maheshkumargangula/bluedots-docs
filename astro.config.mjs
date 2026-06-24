@@ -64,7 +64,7 @@ export default defineConfig({
           tag: 'link',
           attrs: {
             rel: 'stylesheet',
-            href: 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap',
+            href: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap',
           },
         },
         {

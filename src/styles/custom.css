@@ -52,19 +52,14 @@
   letter-spacing: -0.02em;
 }
 
-/* Splash page section headings — Fraunces optical serif */
+/* Splash page section headings — DM Serif Display */
 .sl-markdown-content h2 {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'DM Serif Display', Georgia, serif;
   font-size: clamp(2.25rem, 4.5vw, 3.25rem);
-  font-weight: 800;
-  font-optical-sizing: auto;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   line-height: 1.15;
   color: var(--sl-color-text);
-  text-decoration: underline;
-  text-decoration-color: var(--dot-pink);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 10px;
 }
 
 /* Header logo: fit the wide PNG inside the nav bar height */
