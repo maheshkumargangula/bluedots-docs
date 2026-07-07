@@ -1,7 +1,25 @@
 ---
-import { BookOpen, Grid2x2, Terminal, Compass, ChevronRight } from '@lucide/astro';
+import {
+  BookOpen,
+  Grid2x2,
+  Terminal,
+  Compass,
+  Code,
+  Rocket,
+  Users,
+  TrendingUp,
+  ChevronRight,
+} from '@lucide/astro';
 
-type LucideIcon = 'book-open' | 'grid-2x2' | 'terminal' | 'compass';
+type LucideIcon =
+  | 'book-open'
+  | 'grid-2x2'
+  | 'terminal'
+  | 'compass'
+  | 'code'
+  | 'rocket'
+  | 'users'
+  | 'trending-up';
 type CardColor = 'blue' | 'green' | 'purple' | 'orange';
 
 interface Props {
@@ -18,6 +36,10 @@ const icons = {
   'grid-2x2': Grid2x2,
   'terminal': Terminal,
   'compass': Compass,
+  'code': Code,
+  'rocket': Rocket,
+  'users': Users,
+  'trending-up': TrendingUp,
 } as const;
 const Icon = icons[icon];
 ---

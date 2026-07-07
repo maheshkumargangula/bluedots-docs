@@ -3,6 +3,9 @@ title: Local Stack (Docker)
 description: Bring up Postgres, Redis, Keycloak and Mailpit for local development.
 sidebar:
   order: 2
+next:
+  link: /bluedots-docs/guides/installation/signals-dpg/
+  label: "Path 8 of 9: Signals DPG Setup"
 ---
 
 Both DPGs depend on backing services you run locally via Docker Compose. The two DPGs use slightly different sets.

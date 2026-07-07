@@ -3,6 +3,12 @@ title: Data Model
 description: How items, schemas and partitions are modelled across the Signals and Aggregator datastores.
 sidebar:
   order: 4
+prev:
+  link: /bluedots-docs/core-concepts/technical/schema-driven-model/
+  label: "Path 4 of 9: Schema-Driven Model"
+next:
+  link: /bluedots-docs/core-concepts/technical/read-write-paths/
+  label: "Path 6 of 9: Read & Write Paths"
 ---
 
 Both DPGs use **PostgreSQL** as their system of record (via **Drizzle ORM**) and **Redis** for caching, sessions and queues. Each DPG owns its own database; they do not share tables.

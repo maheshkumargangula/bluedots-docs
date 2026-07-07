@@ -3,6 +3,12 @@ title: Read & Write Paths
 description: The two read layers, count-first discovery, caching, and the controlled write paths into Signals.
 sidebar:
   order: 3
+prev:
+  link: /bluedots-docs/core-concepts/architecture/data-model/
+  label: "Path 5 of 9: Data Model"
+next:
+  link: /bluedots-docs/guides/installation/local-stack/
+  label: "Path 7 of 9: Local Stack"
 ---
 
 Signals keeps **two read layers strictly separate**. Before writing a read endpoint, decide which layer it belongs to.

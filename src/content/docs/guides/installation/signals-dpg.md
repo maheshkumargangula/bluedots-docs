@@ -3,6 +3,12 @@ title: Signals DPG Setup
 description: Install, migrate and run the network-aware Signals backend and UI.
 sidebar:
   order: 3
+prev:
+  link: /bluedots-docs/guides/installation/local-stack/
+  label: "Path 7 of 9: Local Stack"
+next:
+  link: /bluedots-docs/guides/api-reference/
+  label: "Path 9 of 9: API Reference"
 ---
 
 Set up the Signals DPG after your [backing services](/bluedots-docs/guides/installation/local-stack/) are running.

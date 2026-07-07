@@ -3,6 +3,9 @@ title: API Reference
 description: Reference for the Signals and Aggregator endpoints, auth headers and error conventions.
 sidebar:
   order: 7
+prev:
+  link: /bluedots-docs/guides/installation/signals-dpg/
+  label: "Path 8 of 9: Signals DPG Setup"
 ---
 
 This page summarises the public surface of both DPGs. It is a starting scaffold — generate the full, always-current reference from each service's OpenAPI/Zod definitions and link it here.

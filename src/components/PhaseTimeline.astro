@@ -2,6 +2,7 @@
 interface Phase {
   number: number | string;
   title: string;
+  href?: string;
   weeks?: string;
   focus: string;
   actions?: string[];
@@ -21,7 +22,11 @@ const { phases } = Astro.props;
       </div>
       <div class="pt-body">
         <div class="pt-header">
-          <span class="pt-title">{phase.title}</span>
+          {phase.href ? (
+            <a class="pt-title pt-title--link" href={phase.href}>{phase.title}</a>
+          ) : (
+            <span class="pt-title">{phase.title}</span>
+          )}
           {phase.weeks && <span class="pt-weeks">{phase.weeks}</span>}
         </div>
         <p class="pt-focus">{phase.focus}</p>
@@ -90,6 +95,17 @@ const { phases } = Astro.props;
     font-size: 1.0625rem;
     font-weight: 700;
     color: var(--sl-color-text);
+  }
+  .pt-title--link {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+  .pt-title--link:hover {
+    text-decoration: underline;
+  }
+  .pt-title--link:focus-visible {
+    outline: 2px solid var(--dot-blue);
+    outline-offset: 2px;
   }
   .pt-weeks {
     font-size: 0.8125rem;

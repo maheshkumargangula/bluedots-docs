@@ -84,6 +84,15 @@ export default defineConfig({
       ],
       sidebar: [
         {
+          label: 'Start Here',
+          items: [
+            { label: 'Build & integrate', slug: 'start/build' },
+            { label: 'Deploy for a district', slug: 'start/deploy' },
+            { label: 'Onboard participants', slug: 'start/onboard' },
+            { label: 'Evaluate impact', slug: 'start/evaluate' },
+          ],
+        },
+        {
           label: 'Overview',
           items: [
             { label: 'Introduction', slug: 'overview/introduction' },
