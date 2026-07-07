@@ -1,6 +1,6 @@
 ---
 title: Signals DPG Setup
-description: Install, migrate and run the network-aware Signals backend and UI.
+description: Run the Signals backend and UI locally, standalone, in one command.
 sidebar:
   order: 3
 prev:
@@ -11,65 +11,58 @@ next:
   label: "Path 9 of 9: API Reference"
 ---
 
-Set up the Signals DPG after your [backing services](/bluedots-docs/guides/installation/local-stack/) are running.
+The Signals DPG is the network-aware backend (API + UI). It runs **standalone** —
+it needs only its own Postgres + Redis, no other DPG.
 
-## 1. Install dependencies
+- **Repository:** [Blue-Dots-Economy/signals-dpg](https://github.com/Blue-Dots-Economy/signals-dpg)
+- **Canonical local guide:** [`local-setup/LOCAL_SETUP.md`](https://github.com/Blue-Dots-Economy/signals-dpg/blob/HEAD/local-setup/LOCAL_SETUP.md) — the self-contained `local-setup/` folder is the source of truth for running locally.
+
+Pick a track: **A — Docker-only** (fastest, one command) or **B — hybrid dev**
+(run the API/UI from source with hot-reload).
+
+## Track A — one command (Docker)
 
 ```bash
+git clone https://github.com/Blue-Dots-Economy/signals-dpg.git
+cd signals-dpg/local-setup
+cp .env.example .env            # set SIGNALS_PII_KEY (openssl rand -base64 32)
+docker compose up -d --build
+```
+
+This builds a Postgres image with **pgvector + PostGIS** (the extensions
+`db:init` needs), applies the schema, then starts the API and UI.
+
+| Open this      | URL                                            |
+| -------------- | ---------------------------------------------- |
+| **Signals UI** | http://localhost:5173 (must be `:5173` — CORS) |
+| Signals API    | http://localhost:2742 (`/reference` = Swagger) |
+
+## Track B — hybrid dev (hot-reload)
+
+Run Postgres + Redis from `local-setup/`, then the API + UI from source:
+
+```bash
+cd signals-dpg/local-setup && cp .env.example .env
+docker compose up -d postgres redis      # backing services only
+
+cd ..                                     # repo root
 pnpm install
+cp .env.example .env                      # point at the Docker DB/Redis (see the guide)
+pnpm db:push:api && pnpm db:init:api      # schema + extensions/tables
+pnpm dev:api                              # API on :2742  (terminal 1)
+pnpm dev:ui                               # UI  on :5173  (terminal 2)
 ```
 
-## 2. Configure environment
-
-Copy the example env and fill in values. **All env vars are declared in `packages/config`** — add new ones there (and to `turbo.json`'s `globalPassThroughEnv`), never ad hoc.
-
-```bash
-cp .env.example .env
-```
-
-Root scripts wrap Turbo via `scripts/turbo-with-root-env.mjs` so the root `.env` reaches filtered packages. Use the `pnpm dev:api` / `pnpm build:api` aliases — running `turbo run dev --filter=api` directly will miss env vars.
-
-## 3. Database
-
-DB schema lives in `apps/api/db/postgres/schema/`. **Never hand-edit migrations** — generate them:
-
-```bash
-pnpm db:generate:api      # generate migration after editing schema
-# apply migrations per your environment's migrate step
-```
-
-You can bundle and verify the Helm-bundled schema:
-
-```bash
-pnpm schema:bundle
-pnpm schema:bundle:check
-```
-
-## 4. Run
-
-```bash
-pnpm dev:api      # Fastify Signals API
-# the React 19 + Vite UI runs from apps/ui
-```
-
-## 5. Tests & typecheck
-
-```bash
-pnpm --filter api test            # unit (excludes *.integration.test.ts)
-pnpm --filter api test:watch
-
-docker compose up -d db redis     # integration deps
-pnpm --filter api test:integration
-
-pnpm typecheck                    # api tsc + ui tsc
-```
-
-## 6. Seeding networks & domains
-
-Define the **network** (`network.json`) and the **domains** your instance serves (`SERVED_DOMAINS`). Because the model is [schema-driven](/bluedots-docs/core-concepts/technical/schema-driven-model/), you add item types and forms through schemas rather than code.
+Full env values, resets, and troubleshooting are in the
+[`local-setup/LOCAL_SETUP.md`](https://github.com/Blue-Dots-Economy/signals-dpg/blob/HEAD/local-setup/LOCAL_SETUP.md) guide.
 
 :::tip
-`AUTH_MIDDLEWARE_ENABLED=false` temporarily disables the auth path for running migrations or seed scripts. Re-enable it before serving traffic.
+Login uses a **test OTP** in dev (`CREATE_TEST_OTP=true`) — the code is printed
+to the API logs, so no SMS/email provider is needed. `AUTH_MIDDLEWARE_ENABLED=false`
+disables auth entirely for seed/migration scripts.
 :::
 
-Continue to the [Aggregator DPG Setup](/bluedots-docs/guides/installation/aggregator-dpg/), or wire your integration via [API Reference](/bluedots-docs/guides/api-reference/).
+Because the model is [schema-driven](/bluedots-docs/core-concepts/technical/schema-driven-model/),
+you add item types and forms through `network.json` schemas rather than code.
+
+Next: set up the [Aggregator DPG](/bluedots-docs/guides/installation/aggregator-dpg/), or wire an integration via the [API Reference](/bluedots-docs/guides/api-reference/).

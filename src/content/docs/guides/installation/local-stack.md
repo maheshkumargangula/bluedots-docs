@@ -1,6 +1,6 @@
 ---
 title: Local Stack (Docker)
-description: Bring up Postgres, Redis, Keycloak and Mailpit for local development.
+description: Choose your local setup — Signals alone, or the full Aggregator + Signals ecosystem.
 sidebar:
   order: 2
 next:
@@ -8,55 +8,50 @@ next:
   label: "Path 8 of 9: Signals DPG Setup"
 ---
 
-Both DPGs depend on backing services you run locally via Docker Compose. The two DPGs use slightly different sets.
+Each repo ships a self-contained **`local-setup/`** folder — a `docker-compose.yml`,
+a `.env.example`, and a `LOCAL_SETUP.md` guide — that brings up the DPG **and its
+backing services** (Postgres, Redis, and, for the Aggregator, Keycloak / MinIO /
+Mailpit). You don't wire the infra by hand; you copy an env file and run one command.
 
-## Signals backing services
+Both offer the same two tracks:
 
-Signals needs **Postgres + Redis**:
+- **Track A — Docker-only:** one `docker compose up -d --build`. Fastest way to explore.
+- **Track B — hybrid dev:** backing services in Docker, apps from source with hot-reload.
 
-```bash
-docker compose up -d db redis
+## Which setup do I want?
+
+| I want to…                                    | Use                                                                 | Guide                                                                     |
+| --------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Run **Signals only** (backend + UI)           | `signals-dpg/local-setup/`                                          | [Signals DPG Setup](/bluedots-docs/guides/installation/signals-dpg/)      |
+| Run the **full ecosystem** (Aggregator + Signals) | `aggregator-dpg/local-setup/`                                   | [Aggregator DPG Setup](/bluedots-docs/guides/installation/aggregator-dpg/) |
+
+The Aggregator's `local-setup/` builds **both** repos, so clone them as
+**siblings** under one parent directory:
+
+```
+<parent>/
+  ├── aggregator-dpg/        # full-ecosystem stack lives in aggregator-dpg/local-setup/
+  │     └── local-setup/
+  └── signals-dpg/           # standalone stack lives in signals-dpg/local-setup/
+        └── local-setup/
 ```
 
-To run the Signals API itself in a container against those services:
+## Ports at a glance
 
-```bash
-DOCKER_NETWORK=dpg_internal pnpm docker:api
-```
+| Service            | Port   | In which stack        |
+| ------------------ | ------ | --------------------- |
+| Aggregator portal  | `3100` | Aggregator (full)     |
+| Signals UI         | `5173` | both                  |
+| Aggregator API     | `4000` | Aggregator (full)     |
+| Signals API        | `2742` | both                  |
+| Keycloak           | `8080` | Aggregator (full)     |
+| Mailpit (email UI) | `8025` | Aggregator (full)     |
+| Postgres           | `5432` | both                  |
+| Redis              | `5555` / `6379` | Signals / Aggregator |
 
-## Aggregator backing services
-
-The Aggregator stack brings up **Postgres, Keycloak, Redis and Mailpit**. Default local ports:
-
-| Service | Port |
-| --- | --- |
-| PostgreSQL | 5433 |
-| Keycloak | 8080 |
-| Redis | 6379 |
-| Mailpit (email UI) | 8025 |
-
-One-shot setup and start:
-
-```bash
-make setup   # copies infra/env.template -> .env (chmod 600); adds 127.0.0.1 keycloak to /etc/hosts
-make up      # docker compose up -d --build (everything containerised)
-```
-
-Useful lifecycle commands:
-
-```bash
-make down    # stop containers (volumes preserved)
-make reset   # docker compose down -v — DESTROYS data volumes
-make psql    # psql into local Postgres
-```
-
-:::caution
-`make reset` removes data volumes permanently. Use it only when you intend to wipe local data.
+:::tip
+Short on memory? Prefer **Track B** — Docker then runs only the small backing
+containers (no app-image builds) and the Node apps run on the host.
 :::
 
-## Run modes
-
-- **Hybrid (dev)** — backing services in Docker, apps run on the host with `pnpm --filter ... dev`. Uses per-app `.env` (copy from `.env.example`).
-- **Docker-only (VM / prod-like)** — `make setup && make up`. All env values live in a single root `.env`, sectioned per service (`infra/env.template` is the canonical layout).
-
-Next: set up each DPG — [Signals](/bluedots-docs/guides/installation/signals-dpg/) and [Aggregator](/bluedots-docs/guides/installation/aggregator-dpg/).
+Next: set up each DPG — [Signals](/bluedots-docs/guides/installation/signals-dpg/) or the [Aggregator](/bluedots-docs/guides/installation/aggregator-dpg/).
