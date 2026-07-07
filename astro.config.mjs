@@ -13,7 +13,9 @@ export default defineConfig({
 
   integrations: [
     starlight({
-      plugins: [starlightLinksValidator(), starlightImageZoom()],
+      // errorOnLocalLinks off: installation guides legitimately link to
+      // http://localhost:<port> for locally running services.
+      plugins: [starlightLinksValidator({ errorOnLocalLinks: false }), starlightImageZoom()],
       expressiveCode: {
         styleOverrides: {
           borderRadius: '0.75rem',
