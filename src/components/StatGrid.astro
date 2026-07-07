@@ -1,24 +1,13 @@
 ---
+import Grid from './Grid.astro';
+
 interface Props {
   minWidth?: string;
   cols?: number;
 }
 const { minWidth = '180px', cols } = Astro.props;
-const gridStyle = cols
-  ? `grid-template-columns: repeat(${cols}, 1fr)`
-  : `--min: ${minWidth}`;
 ---
 
-<div class="stat-grid not-content" style={gridStyle}>
+<Grid minWidth={minWidth} cols={cols}>
   <slot />
-</div>
-
-<style>
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--min, 180px), 1fr));
-    align-items: stretch;
-    gap: 1rem;
-    margin-block: 1.5rem;
-  }
-</style>
+</Grid>

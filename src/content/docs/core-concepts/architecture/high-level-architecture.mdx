@@ -44,10 +44,32 @@ The Blue Dots stack is organised into clear horizontal layers, with two parallel
 
 The Aggregator vertical is an **on-ramp**: it feeds participant signals into the Signals vertical, which is the **network**. In the MVP the Aggregator writes to Signals only through controlled bulk-create paths and otherwise reads from it.
 
-```text
-Aggregator App ─▶ Aggregator API ─▶ (bulk create) ─▶ Signals API ─▶ Network discovery
-                                                          ▲
-                                          Signals App ────┘
-```
+<pre class="mermaid">
+{`flowchart LR
+  subgraph agg["Aggregator vertical (on-ramp)"]
+    KC["Keycloak (OIDC)"] -. auth .- AW["Aggregator App (web)"]
+    AW --> AA["Aggregator API"]
+  end
+  subgraph sig["Signals vertical (the network)"]
+    BA["Better-Auth"] -. auth .- SW["Signals App (web)"]
+    SW --> SA["Signals API"]
+  end
+  AA -- "bulk create" --> SA
+  AA -. reads .-> SA
+  SA --> ND["Network discovery"]
+  subgraph ds["Shared datastores"]
+    PG["PostgreSQL"]
+    RD["Redis"]
+    S3["Object Storage (S3)"]
+  end
+  AA --> ds
+  SA --> ds
+  classDef aggc fill:#d6e4ff,stroke:#1554c9,color:#0a2540;
+  classDef sigc fill:#d4edda,stroke:#1e7d34,color:#0a2540;
+  classDef store fill:#fff3cd,stroke:#b8860b,color:#0a2540;
+  class KC,AW,AA aggc;
+  class BA,SW,SA,ND sigc;
+  class PG,RD,S3 store;`}
+</pre>
 
 Dive deeper into each vertical in [Signals DPG](/bluedots-docs/core-concepts/architecture/signals-dpg/) and [Aggregator DPG](/bluedots-docs/core-concepts/architecture/aggregator-dpg/).

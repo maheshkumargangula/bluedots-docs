@@ -32,16 +32,25 @@ const colorName = color.charAt(0).toUpperCase() + color.slice(1);
     flex-direction: column;
     gap: 0.5rem;
     padding: 1.25rem;
-    border-radius: 0.875rem;
+    border-radius: var(--bd-radius-lg);
     background: var(--sl-color-bg-nav);
     border: 1px solid var(--sl-color-hairline);
     border-inline-start: 4px solid var(--dot-c);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: var(--bd-shadow-rest);
+    transition: transform 0.2s var(--bd-spring), box-shadow 0.2s ease;
   }
   .dot-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(var(--bd-lift));
+    box-shadow:
+      0 12px 28px color-mix(in oklab, var(--dot-c) 22%, transparent),
+      0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dot-card,
+    .dot-card:hover {
+      transition: none;
+      transform: none;
+    }
   }
   .dot-card--blue   { --dot-c: var(--dot-blue); }
   .dot-card--pink   { --dot-c: var(--dot-pink); }

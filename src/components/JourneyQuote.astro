@@ -7,7 +7,7 @@ interface Props {
 const { before, after, persona } = Astro.props;
 ---
 
-<div class="jq">
+<div class="jq not-content">
   {persona && <div class="jq-persona">{persona}</div>}
   <div class="jq-bubbles">
     <div class="jq-bubble jq-before">
@@ -51,26 +51,18 @@ const { before, after, persona } = Astro.props;
   }
   .jq-bubble {
     padding: 1rem 1.125rem;
-    border-radius: 0.75rem;
+    border-radius: var(--bd-radius-md);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
   .jq-before {
-    background: hsl(0, 55%, 97%);
-    border: 1px solid hsl(0, 50%, 88%);
+    background: var(--bd-before-bg);
+    border: 1px solid color-mix(in oklab, var(--bd-before-text) 25%, transparent);
   }
   .jq-after {
-    background: hsl(142, 50%, 94%);
-    border: 1px solid hsl(142, 45%, 83%);
-  }
-  :root[data-theme='dark'] .jq-before {
-    background: hsl(0, 40%, 14%);
-    border-color: hsl(0, 40%, 22%);
-  }
-  :root[data-theme='dark'] .jq-after {
-    background: hsl(142, 35%, 12%);
-    border-color: hsl(142, 35%, 20%);
+    background: var(--bd-after-bg);
+    border: 1px solid color-mix(in oklab, var(--bd-after-text) 25%, transparent);
   }
   .jq-tag {
     font-size: 0.75rem;
@@ -78,10 +70,8 @@ const { before, after, persona } = Astro.props;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .jq-before .jq-tag { color: hsl(0, 50%, 38%); }
-  .jq-after  .jq-tag { color: hsl(142, 50%, 28%); }
-  :root[data-theme='dark'] .jq-before .jq-tag { color: hsl(0, 60%, 72%); }
-  :root[data-theme='dark'] .jq-after  .jq-tag { color: hsl(142, 60%, 65%); }
+  .jq-before .jq-tag { color: var(--bd-before-text); }
+  .jq-after  .jq-tag { color: var(--bd-after-text); }
 
   .jq-text {
     font-size: 0.9375rem;

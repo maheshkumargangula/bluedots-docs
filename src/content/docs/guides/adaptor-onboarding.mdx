@@ -5,14 +5,44 @@ sidebar:
   order: 5
 ---
 
+import PhaseTimeline from '../../../components/PhaseTimeline.astro';
+
 This is the recommended path for a new **adaptor** — an organisation deploying Blue Dots for a district, state or domain. It assumes you have read [Blue Dots as a DPG](/bluedots-docs/overview/blue-dots-as-a-dpg/).
 
 ## The path at a glance
 
-```text
-1. Stand up Signals  ─▶  2. Define network + domains  ─▶  3. Add Aggregator
-        ─▶  4. Add capture channels  ─▶  5. Integrate notifications  ─▶  6. Pilot & measure
-```
+<PhaseTimeline phases={[
+  {
+    number: 1,
+    title: "Stand up Signals",
+    focus: "Start with the network-aware backend — get the Signals API and UI running against local Postgres + Redis."
+  },
+  {
+    number: 2,
+    title: "Define network + domains",
+    focus: "Decide the network you participate in and the domains your instance serves, expressed as schemas and SERVED_DOMAINS config."
+  },
+  {
+    number: 3,
+    title: "Add Aggregator",
+    focus: "Add the Aggregator DPG to onboard partner organisations at scale, writing participant signals through the bulk-create paths."
+  },
+  {
+    number: 4,
+    title: "Add capture channels",
+    focus: "Web — the schema-driven Signals UI and the Aggregator portal — plus Voice AI for low-cost, local-language signal capture."
+  },
+  {
+    number: 5,
+    title: "Integrate notifications",
+    focus: "Wire SMTP (email) and an SMS provider for OTP, confirmations and match notifications."
+  },
+  {
+    number: 6,
+    title: "Pilot & measure",
+    focus: "Run a bounded pilot in one district and track the before/after metrics that matter."
+  }
+]} />
 
 ## Step 1 — Stand up Signals
 

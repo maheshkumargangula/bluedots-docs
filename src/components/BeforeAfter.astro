@@ -12,7 +12,7 @@ interface Props {
 const { rows, beforeLabel = 'Before', afterLabel = 'With Blue Dots' } = Astro.props;
 ---
 
-<div class="ba-wrap" role="region">
+<div class="ba-wrap not-content" role="region">
   <table class="ba-table">
     <thead>
       <tr>
@@ -37,7 +37,7 @@ const { rows, beforeLabel = 'Before', afterLabel = 'With Blue Dots' } = Astro.pr
   .ba-wrap {
     overflow-x: auto;
     margin-block: 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: var(--bd-radius-md);
     border: 1px solid var(--sl-color-hairline);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   }
@@ -60,22 +60,14 @@ const { rows, beforeLabel = 'Before', afterLabel = 'With Blue Dots' } = Astro.pr
     width: 26%;
   }
   .ba-th-before {
-    background: hsl(0, 55%, 94%);
-    color: hsl(0, 50%, 38%);
+    background: var(--bd-before-bg);
+    color: var(--bd-before-text);
     width: 37%;
   }
   .ba-th-after {
-    background: hsl(142, 45%, 91%);
-    color: hsl(142, 50%, 28%);
+    background: var(--bd-after-bg);
+    color: var(--bd-after-text);
     width: 37%;
-  }
-  :root[data-theme='dark'] .ba-th-before {
-    background: hsl(0, 45%, 18%);
-    color: hsl(0, 60%, 72%);
-  }
-  :root[data-theme='dark'] .ba-th-after {
-    background: hsl(142, 40%, 16%);
-    color: hsl(142, 60%, 65%);
   }
   .ba-row:not(:last-child) td {
     border-bottom: 1px solid var(--sl-color-hairline);
@@ -92,15 +84,9 @@ const { rows, beforeLabel = 'Before', afterLabel = 'With Blue Dots' } = Astro.pr
     background: var(--sl-color-bg-nav);
   }
   .ba-td-before {
-    background: hsl(0, 55%, 98%);
+    background: color-mix(in oklab, var(--bd-before-bg) 35%, var(--sl-color-bg));
   }
   .ba-td-after {
-    background: hsl(142, 45%, 97%);
-  }
-  :root[data-theme='dark'] .ba-td-before {
-    background: hsl(0, 30%, 11%);
-  }
-  :root[data-theme='dark'] .ba-td-after {
-    background: hsl(142, 30%, 9%);
+    background: color-mix(in oklab, var(--bd-after-bg) 35%, var(--sl-color-bg));
   }
 </style>

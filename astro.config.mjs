@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightLinksValidator from 'starlight-links-validator';
+import starlightImageZoom from 'starlight-image-zoom';
 
 // NOTE: `site` and `base` are tuned for GitHub Pages project pages.
 // If you deploy to a custom domain (e.g. docs.bluedotseconomy.org), set
@@ -11,10 +13,20 @@ export default defineConfig({
 
   integrations: [
     starlight({
+      plugins: [starlightLinksValidator(), starlightImageZoom()],
+      expressiveCode: {
+        styleOverrides: {
+          borderRadius: '0.75rem',
+          codeFontFamily: "'DM Mono', ui-monospace, monospace",
+          uiFontFamily: "'DM Sans', system-ui, sans-serif",
+        },
+      },
       title: 'Documentation',
       description:
         'Open documentation for the Blue Dots Economy — the Signals and Aggregator Digital Public Goods (DPGs) that power local discovery.',
       tagline: 'Discovery infrastructure for India’s districts',
+      // Header uses the PNG wordmark; the square SVG dot-mark (logo-*.svg)
+      // is the hero image on the landing page.
       logo: {
         light: './src/assets/logo-light.png',
         dark: './src/assets/logo-dark.png',
@@ -39,34 +51,22 @@ export default defineConfig({
       },
       lastUpdated: true,
       pagination: true,
-      customCss: ['./src/styles/custom.css'],
+      customCss: [
+        // Self-hosted DM superfamily (display / body / code).
+        '@fontsource/dm-serif-display/400.css',
+        '@fontsource/dm-serif-display/400-italic.css',
+        '@fontsource/dm-sans/400.css',
+        '@fontsource/dm-sans/500.css',
+        '@fontsource/dm-sans/700.css',
+        '@fontsource/dm-mono/400.css',
+        '@fontsource/dm-mono/500.css',
+        './src/styles/custom.css',
+      ],
       // Client-side Mermaid rendering (no build-time dependency). Diagrams are
       // authored as <pre class="mermaid"> blocks in Markdown; this script loads
       // Mermaid from a CDN and (re-)renders on every Astro page load, matching
       // the active light/dark theme.
       head: [
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'preconnect',
-            href: 'https://fonts.googleapis.com',
-          },
-        },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'preconnect',
-            href: 'https://fonts.gstatic.com',
-            crossorigin: true,
-          },
-        },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'stylesheet',
-            href: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap',
-          },
-        },
         {
           tag: 'script',
           attrs: { type: 'module' },
@@ -74,7 +74,7 @@ export default defineConfig({
             "import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';",
             'function renderMermaid() {',
             "  const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default';",
-            '  mermaid.initialize({ startOnLoad: false, theme });',
+            "  mermaid.initialize({ startOnLoad: false, theme, themeVariables: theme === 'default' ? { primaryColor: '#d6e4ff', primaryBorderColor: '#1335b5', primaryTextColor: '#0a2540' } : {} });",
             "  const nodes = document.querySelectorAll('pre.mermaid:not([data-processed])');",
             '  if (nodes.length) mermaid.run({ nodes });',
             '}',
@@ -152,6 +152,14 @@ export default defineConfig({
             { label: 'Pilots: Ghaziabad & Dharwad', slug: 'explore/pilots' },
             { label: 'The Economics of Local Discovery', slug: 'explore/economics' },
             { label: 'The Dots Family', slug: 'explore/beyond-livelihoods' },
+          ],
+        },
+        {
+          label: 'Community',
+          items: [
+            { label: 'Contributing', slug: 'community/contributing' },
+            { label: 'Roadmap', slug: 'community/roadmap' },
+            { label: 'Release Notes', slug: 'community/release-notes' },
           ],
         },
       ],

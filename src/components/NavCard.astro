@@ -1,4 +1,6 @@
 ---
+import { BookOpen, Grid2x2, Terminal, Compass, ChevronRight } from '@lucide/astro';
+
 type LucideIcon = 'book-open' | 'grid-2x2' | 'terminal' | 'compass';
 type CardColor = 'blue' | 'green' | 'purple' | 'orange';
 
@@ -11,69 +13,47 @@ interface Props {
 }
 const { title, description, href, icon, color } = Astro.props;
 
-const paths: Record<LucideIcon, string> = {
-  'book-open': `<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>`,
-  'grid-2x2': `<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>`,
-  'terminal': `<polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/>`,
-  'compass': `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
-};
-
-const chevron = `<polyline points="9 18 15 12 9 6"/>`;
+const icons = {
+  'book-open': BookOpen,
+  'grid-2x2': Grid2x2,
+  'terminal': Terminal,
+  'compass': Compass,
+} as const;
+const Icon = icons[icon];
 ---
 
 <a href={href} class:list={['nc', `nc--${color}`]}>
   <div class="nc-icon">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="18" height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
-      set:html={paths[icon]}
-    />
+    <Icon size={18} stroke-width={2} aria-hidden="true" />
   </div>
   <div class="nc-body">
     <span class="nc-title">{title}</span>
     <span class="nc-desc">{description}</span>
   </div>
-  <svg
-    class="nc-chevron"
-    xmlns="http://www.w3.org/2000/svg"
-    width="18" height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-    set:html={chevron}
-  />
+  <ChevronRight class="nc-chevron" size={18} stroke-width={2} aria-hidden="true" />
 </a>
 
 <style>
   .nc {
-    --ic:    #1d6cf2;
-    --ibg:   rgba(29, 108, 242, 0.1);
-    --hover: rgba(29, 108, 242, 0.06);
-    --bd:    rgba(29, 108, 242, 0.2);
-    --glow:  rgba(29, 108, 242, 0.15);
+    /* per-variant brand color; everything else derives from it */
+    --c:     var(--dot-blue);
+    --ic:    var(--c);
+    --ibg:   color-mix(in oklab, var(--c) 12%, transparent);
+    --hover: color-mix(in oklab, var(--c) 6%, var(--sl-color-bg-nav));
+    --bd:    color-mix(in oklab, var(--c) 30%, transparent);
+    --glow:  color-mix(in oklab, var(--c) 15%, transparent);
 
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 1.125rem 1.25rem;
-    border-radius: 0.875rem;
+    border-radius: var(--bd-radius-lg);
     border: 1px solid var(--sl-color-hairline);
     background: var(--sl-color-bg-nav);
     text-decoration: none;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--bd-shadow-rest);
     transition:
-      transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+      transform 0.2s var(--bd-spring),
       box-shadow 0.2s ease,
       background 0.15s ease,
       border-color 0.15s ease;
@@ -82,19 +62,20 @@ const chevron = `<polyline points="9 18 15 12 9 6"/>`;
   .nc:hover {
     background: var(--hover);
     border-color: var(--bd);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px var(--glow), 0 2px 4px rgba(0,0,0,0.05);
+    transform: translateY(var(--bd-lift));
+    box-shadow: 0 8px 20px var(--glow), 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
-  .nc--blue   { --ic:#1d6cf2; --ibg:rgba(29,108,242,.1);  --hover:rgba(29,108,242,.05); --bd:rgba(29,108,242,.3);  --glow:rgba(29,108,242,.14); }
-  .nc--green  { --ic:#16a34a; --ibg:rgba(22,163,74,.1);   --hover:rgba(22,163,74,.05);  --bd:rgba(22,163,74,.3);   --glow:rgba(22,163,74,.14); }
-  .nc--purple { --ic:#7c3aed; --ibg:rgba(124,58,237,.1);  --hover:rgba(124,58,237,.05); --bd:rgba(124,58,237,.3);  --glow:rgba(124,58,237,.14); }
-  .nc--orange { --ic:#ea580c; --ibg:rgba(234,88,12,.1);   --hover:rgba(234,88,12,.05);  --bd:rgba(234,88,12,.3);   --glow:rgba(234,88,12,.14); }
+  .nc:focus-visible {
+    outline: 2px solid var(--dot-blue);
+    outline-offset: 3px;
+  }
 
-  :root[data-theme='dark'] .nc--blue   { --ic:#93bbff; --ibg:rgba(29,108,242,.18);  --hover:rgba(29,108,242,.08); --bd:rgba(29,108,242,.4);  --glow:rgba(29,108,242,.2); }
-  :root[data-theme='dark'] .nc--green  { --ic:#86efac; --ibg:rgba(22,163,74,.18);   --hover:rgba(22,163,74,.08);  --bd:rgba(22,163,74,.4);   --glow:rgba(22,163,74,.2); }
-  :root[data-theme='dark'] .nc--purple { --ic:#c4b5fd; --ibg:rgba(124,58,237,.18);  --hover:rgba(124,58,237,.08); --bd:rgba(124,58,237,.4);  --glow:rgba(124,58,237,.2); }
-  :root[data-theme='dark'] .nc--orange { --ic:#fdba74; --ibg:rgba(234,88,12,.18);   --hover:rgba(234,88,12,.08);  --bd:rgba(234,88,12,.4);   --glow:rgba(234,88,12,.2); }
+  /* ── colour variants (light + dark handled by --dot-* tokens) ── */
+  .nc--blue   { --c: var(--dot-blue); }
+  .nc--green  { --c: var(--dot-green); }
+  .nc--purple { --c: var(--dot-purple); }
+  .nc--orange { --c: var(--dot-orange); }
 
   /* ── icon badge ── */
   .nc-icon {
@@ -109,7 +90,7 @@ const chevron = `<polyline points="9 18 15 12 9 6"/>`;
     flex-shrink: 0;
     transition:
       background 0.18s ease,
-      transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform 0.22s var(--bd-spring);
   }
 
   .nc:hover .nc-icon {
@@ -146,14 +127,26 @@ const chevron = `<polyline points="9 18 15 12 9 6"/>`;
   }
 
   /* ── chevron ── */
-  .nc-chevron {
+  .nc :global(.nc-chevron) {
     color: var(--sl-color-gray-4);
     flex-shrink: 0;
     transition: transform 0.2s ease, color 0.18s ease;
   }
 
-  .nc:hover .nc-chevron {
+  .nc:hover :global(.nc-chevron) {
     transform: translateX(4px);
     color: var(--ic);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nc,
+    .nc:hover,
+    .nc-icon,
+    .nc:hover .nc-icon,
+    .nc :global(.nc-chevron),
+    .nc:hover :global(.nc-chevron) {
+      transition: none;
+      transform: none;
+    }
   }
 </style>

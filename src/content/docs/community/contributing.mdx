@@ -5,6 +5,8 @@ sidebar:
   order: 1
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 Blue Dots is built as open Digital Public Goods, and contributions are welcome — to the DPGs and to this documentation.
 
 ## Contributing to the DPGs
@@ -23,10 +25,17 @@ CI must pass (lint, typecheck, test, build, dep-check) before merge; branch prot
 
 This site is **Astro + Starlight**. Content lives in `src/content/docs/` as Markdown/MDX.
 
+<Steps>
+
 1. Fork and clone the docs repository.
+
 2. `pnpm install` then `pnpm dev` to preview locally.
+
 3. Edit or add a `.md`/`.mdx` page; register new pages in the sidebar in `astro.config.mjs`.
+
 4. Run `pnpm build` to confirm it compiles, then open a PR.
+
+</Steps>
 
 Use the **Edit page** link in the footer of any page to jump straight to its source on GitHub.
 

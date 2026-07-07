@@ -5,6 +5,8 @@ sidebar:
   order: 2
 ---
 
+import BeforeAfter from '../../../../components/BeforeAfter.astro';
+
 Blue Dots is **schema-driven** end to end. The structure of what an instance stores, exchanges and renders is defined by schemas — not hardcoded — so a new domain or form can ship without touching application code.
 
 ## Three kinds of schema
@@ -18,6 +20,33 @@ Blue Dots is **schema-driven** end to end. The structure of what an instance sto
 1. **Interoperability.** Two instances on the same network agree on structure by construction, which is what makes inter-instance discovery possible.
 2. **Evolvability.** Versioned `item_type`s (e.g. `profile_1.0` → `profile_1.1`) let the model change without breaking peers.
 3. **No-code domain changes.** Product and program teams can add fields or new forms by editing schemas/config, not code.
+
+<BeforeAfter
+  beforeLabel="Freeform"
+  afterLabel="Schema-typed"
+  rows={[
+    {
+      dimension: 'Record structure',
+      before: 'Freeform records with no agreed structure',
+      after: 'Every item’s item_type points at a versioned schema (e.g. profile_1.0)',
+    },
+    {
+      dimension: 'Interoperability',
+      before: 'Instances have no shared structure, so inter-instance discovery is not possible',
+      after: 'Instances on the same network agree on structure by construction, enabling discovery',
+    },
+    {
+      dimension: 'Evolvability',
+      before: 'Changing the model risks breaking peers',
+      after: 'Versioned item_types (profile_1.0 → profile_1.1) evolve without breaking peers',
+    },
+    {
+      dimension: 'Domain changes',
+      before: 'A new domain or form means touching application code',
+      after: 'Teams ship fields and forms by editing schemas/config — no code changes',
+    },
+  ]}
+/>
 
 ## Backend-owned fields
 
