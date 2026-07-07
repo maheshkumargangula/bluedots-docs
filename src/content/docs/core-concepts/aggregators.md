@@ -28,8 +28,8 @@ Integrating DPGs (such as the Aggregator app, or a voice DPG) authenticate to Si
 
 ## Relationship to Signals
 
-```text
-Participants ──▶ Aggregator DPG ──(bulk create)──▶ Signals DPG ──▶ Network discovery & matching
-```
+<!-- Editable source: src/assets/diagrams/aggregators-relationship.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![Participants flow into the Aggregator DPG (the on-ramp), which bulk-creates signals in the Signals DPG (the network), enabling network discovery and matching](../../../assets/diagrams/aggregators-relationship.png)
 
 The Aggregator app is the on-ramp; the Signals DPG is the network. Adaptors usually stand up Signals first, then add the Aggregator app as partner organisations come on board.

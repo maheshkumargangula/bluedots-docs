@@ -25,12 +25,9 @@ An **event** is the *structured result* of an action — the durable, machine-re
 
 ## How they relate
 
-```text
-item  ──action──▶  item
-          │
-          ▼
-        event   (structured result, persisted)
-```
+<!-- Editable source: src/assets/diagrams/items-actions-events.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![An action (for example, apply) connects a seeker item to a provider item, and produces an event — the structured, persisted result](../../../assets/diagrams/items-actions-events.png)
 
 A signal lifecycle, in these terms:
 

@@ -26,12 +26,9 @@ The Signals database is organised around the item/action/event primitives:
 
 How the item/action/event primitives relate:
 
-<pre class="mermaid">
-{`erDiagram
-  ITEM_TYPE_SCHEMA ||--o{ ITEM : "types (item_type)"
-  ITEM ||--o{ ACTION : "interacts via"
-  ACTION ||--o{ EVENT : "produces (structured result)"`}
-</pre>
+{/* Editable source: src/assets/diagrams/data-model-er.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. */}
+
+![An item-type schema types many items (1—n); items interact via actions (1—n); each action produces events as structured results (1—n)](../../../../assets/diagrams/data-model-er.png)
 
 Always query through the partition-aware helpers in `@dpg/database`; a query against the parent table without a partition key scans all partitions.
 

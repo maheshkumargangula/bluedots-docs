@@ -9,14 +9,9 @@ This page describes how a Blue Dots deployment is *provisioned and run* on a clu
 
 ## Two layers
 
-```text
-┌───────────────────────────────────────────────────────────┐
-│ Apps (Helm)   common-services → signals → aggregator (+ monitoring) │
-├───────────────────────────────────────────────────────────┤
-│ Infra (OpenTofu/Terragrunt)   VPC · EKS · IAM/IRSA · S3 · storage   │
-└───────────────────────────────────────────────────────────┘
-        one entrypoint:  opentofu/aws/<env>/install.sh
-```
+<!-- Editable source: src/assets/diagrams/infra-two-layers.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![Two layers: Apps deployed with Helm (common-services with Kong, then signals, then aggregator, plus a monitoring stack of Grafana, Prometheus and Loki deployed first) on top of Infra provisioned with OpenTofu/Terragrunt (VPC, EKS, IAM/IRSA, S3, storage) — one entrypoint: opentofu/aws/&lt;env&gt;/install.sh](../../../../assets/diagrams/infra-two-layers.png)
 
 ## Infrastructure: OpenTofu + Terragrunt
 
