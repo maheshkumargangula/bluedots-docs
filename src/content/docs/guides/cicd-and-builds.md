@@ -9,22 +9,9 @@ Blue Dots separates **building** application images from **deploying** them. The
 
 ## The pipeline at a glance
 
-<pre class="mermaid">
-flowchart TD
-  A["Open PR in an app repo"] --> B["GitHub Actions<br/>lint · typecheck · test · build"]
-  B --> C["Merge to trunk"]
-  C --> D["Docker matrix builds images"]
-  D --> E["GHCR<br/>ghcr.io/blue-dots-economy/...:sha-short"]
-  E --> F["Pin tag in global-images.yaml<br/>(per environment)"]
-  F --> G["install.sh deploy_*<br/>helm upgrade --install --wait"]
-  G --> H["AWS EKS<br/>common-services then signals then aggregator"]
-  classDef app fill:#d6e4ff,stroke:#1554c9,color:#0a2540;
-  classDef reg fill:#fff3cd,stroke:#b8860b,color:#0a2540;
-  classDef cd fill:#d4edda,stroke:#1e7d34,color:#0a2540;
-  class A,B,C,D app;
-  class E,F reg;
-  class G,H cd;
-</pre>
+<!-- Editable source: src/assets/diagrams/cicd-pipeline.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![Application CI in app repos (open PR, GitHub Actions quality gates, merge to trunk, Docker matrix builds) feeds the image registry (GHCR sha-short tags, pinned per environment in global-images.yaml), which Delivery/CD in bluedots-automation deploys via install.sh with Helm to AWS EKS — common-services, then signals, then aggregator](../../../assets/diagrams/cicd-pipeline.png)
 
 The diagram shows two distinct "CI/CD" surfaces, bridged by the image registry (yellow):
 
@@ -90,15 +77,9 @@ bash install.sh deploy_all_services
 
 `deploy_all_services` chains, in strict order:
 
-```text
-preflight
- → create_namespaces_and_secrets   (3 namespaces + ghcr-pull image-pull secret)
-   → deploy_monitoring
-     → deploy_common_services       (gp3 default SC + Kong CRDs + platform)
-       → deploy_signals
-         → deploy_aggregator
-           → fix_acme_issuer_uri
-```
+<!-- Editable source: src/assets/diagrams/cicd-deploy-chain.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![deploy_all_services runs in strict order: 1 preflight, 2 create_namespaces_and_secrets (3 namespaces + ghcr-pull secret), 3 deploy_monitoring, 4 deploy_common_services (gp3 default SC + Kong CRDs + platform), 5 deploy_signals, 6 deploy_aggregator, 7 fix_acme_issuer_uri](../../../assets/diagrams/cicd-deploy-chain.png)
 
 See the [Deployment guide](/bluedots-docs/guides/deployment/) for the full step-by-step and validation, and [Infrastructure & Deployment Architecture](/bluedots-docs/core-concepts/architecture/infrastructure/) for what each layer is.
 

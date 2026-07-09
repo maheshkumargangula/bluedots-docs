@@ -36,14 +36,9 @@ Reads **across instances** using a *count-first discovery* strategy:
 
 This avoids the naive "every instance queries every other" fan-out and is the core scaling decision of the network.
 
-```text
-client ─▶ /network/item/fetch
-            │  1. count across peers
-            │  2. pick relevant peers only
-            │  3. fetch slices
-            ▼  4. merge + cache (+ schema cache)
-         merged result
-```
+<!-- Editable source: src/assets/diagrams/read-write-network-fetch.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![A client calls GET /network/item/fetch on the Signals API, which counts across peer instances, picks only the relevant peers, fetches slices from them, then merges and caches (including the schema cache) into the merged result](../../../../assets/diagrams/read-write-network-fetch.png)
 
 ## Write paths
 

@@ -17,9 +17,9 @@ This page describes how a Blue Dots deployment is *provisioned and run* on a clu
 
 Infrastructure is defined as code under `opentofu/aws/`. Each environment is a directory (`opentofu/aws/<env>/`) created by copying `template/`. Terragrunt wraps OpenTofu to give per-module state and dependency wiring; modules apply in order:
 
-```text
-network → eks → iam → storage → random_passwords → output-file
-```
+<!-- Editable source: src/assets/diagrams/infra-terragrunt-chain.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![Terragrunt modules apply in order: network, eks, iam, storage, random_passwords, output-file — output-file generates the per-chart Helm values files](../../../../assets/diagrams/infra-terragrunt-chain.png)
 
 | Module | Provisions |
 | --- | --- |
@@ -67,46 +67,9 @@ Three umbrella charts (plus a monitoring chart) deploy in **strict dependency or
 
 ### Deployment topology
 
-```text
-                       Internet
-                          │
-            DNS → Kong proxy LoadBalancer
-                          │
-              ┌───────────▼───────────┐
-              │  Kong ingress (common-services)  │
-              └─────┬───────────┬──────┘
-                    │           │
-        ns: signals │           │ ns: aggregator
-   ┌────────────────▼──┐   ┌────▼─────────────────────┐
-   │ api · ui ·         │   │ web (BFF) · api · worker  │
-   │ notification ·     │   │ · keycloak                │
-   │ match-score ·      │   └────────────┬──────────────┘
-   │ search             │                │
-   └─────────┬──────────┘                │
-             │   shared datastores       │
-             └──────────┬────────────────┘
-                        ▼
-   ns: common-services  ·  PostgreSQL + Redis  ·  cert-manager (TLS)
-```
+<!-- Editable source: src/assets/diagrams/infra-topology.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
 
-The same flow as a rendered diagram:
-
-<pre class="mermaid">
-flowchart TD
-  NET["Internet"] --> LB["DNS → Kong proxy LoadBalancer"]
-  LB --> KONG["Kong ingress controller<br/>ns: common-services"]
-  KONG --> SIG["Signals (ns: signals)<br/>api · ui · notification · match-score · search"]
-  KONG --> AGG["Aggregator (ns: aggregator)<br/>web (BFF) · api · worker · keycloak"]
-  SIG --> DB["Shared datastores (ns: common-services)<br/>PostgreSQL + Redis"]
-  AGG --> DB
-  CM["cert-manager + Let's Encrypt<br/>(ns: common-services)"] -. "issues TLS certs" .-> KONG
-  classDef plat fill:#d6e4ff,stroke:#1554c9,color:#0a2540;
-  classDef app fill:#d4edda,stroke:#1e7d34,color:#0a2540;
-  classDef data fill:#fff3cd,stroke:#b8860b,color:#0a2540;
-  class NET,LB,KONG,CM plat;
-  class SIG,AGG app;
-  class DB data;
-</pre>
+![Traffic flows from the Internet via DNS to the Kong proxy LoadBalancer and the Kong ingress controller (ns: common-services), which routes to Signals (ns: signals — api, ui, notification, match-score, search) and Aggregator (ns: aggregator — web BFF, api, worker, keycloak); both connect to shared PostgreSQL and Redis in common-services, where cert-manager with Let's Encrypt issues TLS certificates for Kong](../../../../assets/diagrams/infra-topology.png)
 
 :::note[Names don't match directories]
 A chart's directory, chart name, release name and namespace can all differ. The Signals stack lives in `helm/signals/`. Treat `install.sh` and `DEPLOYMENT.md` as the source of truth for what deploys where.

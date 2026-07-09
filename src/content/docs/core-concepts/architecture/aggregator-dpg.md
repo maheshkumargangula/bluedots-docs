@@ -30,13 +30,8 @@ Other non-negotiable rules: every cross-package contract is an **abstract class*
 
 ## Data flow
 
-```text
-Org registers ─▶ approval ─▶ bulk upload (file→S3)
-                                   │
-                          worker: file→rows→finalise
-                                   │
-                                   ▼
-                       signalstack-writer ─▶ Signals API
-```
+<!-- Editable source: src/assets/diagrams/aggregator-dpg-data-flow.excalidraw — open at https://excalidraw.com to adjust, re-export PNG here. -->
+
+![An organisation registers and is approved, then bulk-uploads a file to S3; the worker processes it (file to rows to finalise) and hands rows to signalstack-writer, which writes to the Signals API](../../../../assets/diagrams/aggregator-dpg-data-flow.png)
 
 See [Identity & Auth](/bluedots-docs/core-concepts/architecture/identity-and-auth/) for the Keycloak setup and the service-auth handshake with Signals.
