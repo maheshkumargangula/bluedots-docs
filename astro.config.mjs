@@ -47,10 +47,6 @@ export default defineConfig({
           href: 'https://bluedotseconomy.org',
         },
       ],
-      editLink: {
-        baseUrl:
-          'https://github.com/Blue-Dots-Economy/bluedots-docs/edit/main/',
-      },
       lastUpdated: true,
       pagination: true,
       customCss: [
